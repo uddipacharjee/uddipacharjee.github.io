@@ -10,6 +10,8 @@
  * that evidence and should be rewritten in Uddip's own words.
  */
 
+export const siteUrl = "https://uddipacharjee.github.io";
+
 export const profile = {
   name: "Uddip Acharjee Shuvo",
   role: "Java Backend Engineer",
@@ -103,7 +105,9 @@ export const tooling: string[] = [
   "Git",
 ];
 
+/** Absolute paths, so the same links work from the home page and from posts. */
 export const navLinks = [
-  { id: "about", label: "About" },
-  { id: "skills", label: "Skills" },
+  { href: "/#about", label: "About" },
+  { href: "/#skills", label: "Skills" },
+  { href: "/blogs/", label: "Blog" },
 ];

@@ -3,7 +3,7 @@ import { Instrument_Sans } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
-import { profile, socials } from "@/data/resume";
+import { profile, siteUrl, socials } from "@/data/resume";
 
 // One family for everything. The width axis lets the hero name run
 // condensed (font-stretch) while body text stays at normal width.
@@ -14,7 +14,6 @@ const instrumentSans = Instrument_Sans({
   display: "swap",
 });
 
-const siteUrl = "https://uddipacharjee.github.io";
 const description = `${profile.role} in ${profile.location}, building Spring Boot services, Spring Batch pipelines and integration APIs on Java 21 and PostgreSQL.`;
 
 export const metadata: Metadata = {

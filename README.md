@@ -13,7 +13,7 @@ restyled as a light, minimal, typography-led page.
 |---|---|
 | Framework | Next.js 16 (App Router, static export, Turbopack) |
 | UI | React 19, Tailwind CSS 4 |
-| Type | Instrument Sans (one family; the hero name uses its condensed width) |
+| Type | Instrument Sans (the hero name and post titles use its condensed width); JetBrains Mono for code in posts |
 | Hosting | GitHub Pages, served from `main` → `/docs` |
 
 There is no client-side JavaScript of our own: every component is a server
@@ -78,6 +78,84 @@ integration, persistence, runtime — in `skillLayers`, and the page tints each
 layer a little deeper than the one above it. Tooling that is not part of a layer
 (build, test, containers) goes in `tooling`.
 
+## Adding a blog post
+
+Posts follow the same pattern as the LithiumGit site: each post is its own page,
+written as JSX, at `app/blogs/<slug>/page.tsx`. The `/blogs/` index lists them
+newest first.
+
+**1. Add its details to [`data/blogs.ts`](data/blogs.ts).** The index, the post
+header, the page metadata and the JSON-LD all read from this entry.
+
+```ts
+{
+  slug: "loading-a-million-rows-with-spring-batch",
+  title: "Loading a million rows with Spring Batch",
+  description: "One or two sentences for the index and search results.",
+  category: "Spring Batch",
+  datePublished: "2026-11-02",
+  // dateModified: "2026-11-10",   shows "Updated ..." when set
+  readingMinutes: 6,
+  tags: ["Spring Batch", "PostgreSQL"],
+},
+```
+
+**2. Create `app/blogs/<slug>/page.tsx`** with the same slug:
+
+```tsx
+import BlogPost, { postMetadata } from "@/components/blog/BlogPost";
+import Callout from "@/components/blog/Callout";
+import CodeBlock from "@/components/blog/CodeBlock";
+import Figure from "@/components/blog/Figure";
+
+const SLUG = "loading-a-million-rows-with-spring-batch";
+
+export const metadata = postMetadata(SLUG);
+
+export default function Post() {
+  return (
+    <BlogPost slug={SLUG}>
+      <p>Opening paragraph. Use <code>inline code</code> freely.</p>
+
+      <h2>A section</h2>
+      <p>Plain p, h2, h3, ul, ol, table and blockquote elements are styled for you.</p>
+
+      <CodeBlock label="ImportJobConfig.java">{`
+        @Bean
+        public Step importStep(JobRepository jobs, PlatformTransactionManager tx) {
+            return new StepBuilder("importStep", jobs)
+                    .<Row, Row>chunk(500, tx)
+                    .build();
+        }
+      `}</CodeBlock>
+
+      <Callout title="Rule of thumb">
+        <p>A side note, tip or warning.</p>
+      </Callout>
+
+      <Figure
+        src="/blogs/loading-a-million-rows-with-spring-batch/diagram.png"
+        alt="What the image shows"
+        width={1200}
+        height={600}
+        caption="Optional caption."
+      />
+    </BlogPost>
+  );
+}
+```
+
+`CodeBlock` strips the leading and trailing blank lines and the indentation
+shared by every line, so code can sit indented inside the JSX as above.
+Put a post's images in `public/blogs/<slug>/`.
+
+**3. Build** (`npm run build`). A page whose slug has no entry in `data/blogs.ts`
+fails the build with a message naming the slug.
+
+If you delete a post, delete both its folder and its entry. If `npm run typecheck`
+then complains about the deleted page under `.next/types/`, run `npm run build`
+once to regenerate those types.
+
 ## Search engines
 
 The site is currently **kept out of search results**, the same as the site it was
@@ -91,9 +169,18 @@ built from: `app/robots.ts` disallows crawling and the `robots` block in
 app/
   layout.tsx        Font, metadata, schema.org Person JSON-LD
   page.tsx          Section composition
-  globals.css       Tailwind v4 theme tokens (light + dark) + component classes
+  globals.css       Tailwind v4 theme tokens (light + dark), component classes,
+                    post body styles (.prose-post)
+  blogs/
+    layout.tsx      Loads the monospace font, for blog pages only
+    page.tsx        The /blogs/ index
+    <slug>/page.tsx One folder per post
 components/         One component per section, plus Nav / Section / ProfileLinks
-data/resume.ts      All content
+  blog/             BlogPost frame + CodeBlock / Callout / Figure for posts
+data/
+  resume.ts         Profile, skills and nav content
+  blogs.ts          Every post's title, dates, category and description
+lib/dates.ts        Post date formatting
 scripts/
   postbuild.mjs     Moves the export to docs/
 docs/               The built site — committed, served by GitHub Pages
