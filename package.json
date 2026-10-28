@@ -2,8 +2,8 @@
   "name": "uddipacharjee.github.io",
   "version": "1.0.0",
   "private": true,
-  "description": "Portfolio of Uddip Acharjee Shuvo — Java backend engineer",
-  "homepage": "https://uddipacharjee.github.io/",
+  "description": "Portfolio of Uddip Acharjee Shuvo — software engineer and researcher",
+  "homepage": "https://uddipacharjee.com/",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",

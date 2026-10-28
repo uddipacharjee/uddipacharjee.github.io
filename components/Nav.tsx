@@ -9,7 +9,7 @@ export default function Nav() {
       </a>
 
       <nav aria-label="Site">
-        <ul className="flex items-center gap-6 text-[15px] text-muted">
+        <ul className="flex items-center gap-4 text-sm text-muted sm:gap-6 sm:text-[15px]">
           {navLinks.map((link) => (
             <li key={link.href}>
               <a href={link.href} className="transition-colors hover:text-ink">

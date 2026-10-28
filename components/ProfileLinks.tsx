@@ -6,6 +6,9 @@ type ProfileLink = { label: string; href: string };
 const links: ProfileLink[] = [
   { label: "GitHub", href: socials.github },
   ...(socials.linkedin ? [{ label: "LinkedIn", href: socials.linkedin }] : []),
+  ...(socials.scholar
+    ? [{ label: "Google Scholar", href: socials.scholar }]
+    : []),
   ...(profile.email
     ? [{ label: profile.email, href: `mailto:${profile.email}` }]
     : []),
