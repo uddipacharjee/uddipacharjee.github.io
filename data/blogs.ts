@@ -142,9 +142,9 @@ export const posts: Post[] = [
   },
   {
     slug: "best-git-gui-clients",
-    title: "Best Git GUI Clients in 2026: 9 Desktop Apps Compared",
+    title: "Best Git GUI Clients in 2026: Price, Platforms and Licences",
     description:
-      "Nine Git GUI clients compared for 2026: GitKraken, Fork, Tower, Sourcetree, GitHub Desktop, Sublime Merge, SmartGit, TortoiseGit and LithiumGit.",
+      "The best and most popular Git GUI clients for Windows, macOS and Linux, compared on price, platforms, licences and features, with advice on choosing.",
     category: "Developer tools",
     datePublished: "2026-10-28",
     readingMinutes: 14,
