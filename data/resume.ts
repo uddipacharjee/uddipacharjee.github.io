@@ -182,12 +182,13 @@ export const awards: Award[] = [
   },
 ];
 
+/** Written to read mid-sentence: keep acronyms capitalised, the rest lower case. */
 export const researchInterests: string[] = [
   "LLMs and agents for biology",
-  "Genome foundation models",
-  "Multi-omic data integration",
-  "Machine learning for health",
-  "Evaluating LLM code generation",
+  "genome foundation models",
+  "multi-omic data integration",
+  "machine learning for health",
+  "evaluating LLM code generation",
 ];
 
 export type Publication = {

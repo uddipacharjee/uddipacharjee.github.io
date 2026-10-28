@@ -2,7 +2,7 @@ import { profile, publications, researchInterests, socials } from "@/data/resume
 import Section from "./Section";
 
 const interests = new Intl.ListFormat("en", { type: "conjunction" }).format(
-  researchInterests.map((s) => s.toLowerCase()),
+  researchInterests,
 );
 
 /** Author list with the site owner set in the ink colour, the rest muted. */
