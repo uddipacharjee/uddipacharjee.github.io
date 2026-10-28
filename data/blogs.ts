@@ -151,6 +151,17 @@ export const posts: Post[] = [
     tags: ["Git", "Git GUI", "Developer tools", "Version control", "IntelliJ IDEA", "VS Code"],
     image: "/blogs/best-git-gui-clients/git-clients-at-a-glance.svg",
   },
+  {
+    slug: "which-jdk-distribution",
+    title: "Which JDK Distribution Should You Use in 2026?",
+    description:
+      "Temurin, Corretto, Zulu, Liberica, Oracle JDK and more compared for 2026: free update dates, licences, platforms, Docker images and Spring Boot tips.",
+    category: "Developer tools",
+    datePublished: "2026-10-28",
+    readingMinutes: 15,
+    tags: ["Java", "JDK", "OpenJDK", "Developer tools", "Spring Boot", "Docker"],
+    image: "/blogs/which-jdk-distribution/java-25-free-updates.svg",
+  },
 ];
 
 export const postsNewestFirst = [...posts].sort((a, b) =>

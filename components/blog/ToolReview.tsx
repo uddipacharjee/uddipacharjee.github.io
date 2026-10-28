@@ -1,3 +1,5 @@
+import { Fragment } from "react";
+
 export type Tool = {
   name: string;
   website: string;
@@ -9,6 +11,8 @@ export type Tool = {
   platforms: string;
   license: string;
   firstReleased: string;
+  /** Extra facts for this kind of tool, shown after Platforms. */
+  facts?: { label: string; value: string }[];
   summary: string;
   features: string[];
   strengths: string[];
@@ -39,6 +43,12 @@ export default function ToolReview({ tool }: { tool: Tool }) {
         <dd>{tool.price}</dd>
         <dt className="text-muted">Platforms</dt>
         <dd>{tool.platforms}</dd>
+        {tool.facts?.map((fact) => (
+          <Fragment key={fact.label}>
+            <dt className="text-muted">{fact.label}</dt>
+            <dd>{fact.value}</dd>
+          </Fragment>
+        ))}
         <dt className="text-muted">License</dt>
         <dd>{tool.license}</dd>
         <dt className="text-muted">First released</dt>
