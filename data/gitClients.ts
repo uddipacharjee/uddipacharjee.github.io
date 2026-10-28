@@ -49,8 +49,9 @@ export const gitClients: Tool[] = [
       "A free client built around an interactive commit graph, where you merge, rebase, cherry-pick and branch by acting on the graph itself. It uses the Git you already have installed and works with any remote host.",
     features: [
       "Interactive graph: merge, rebase, cherry-pick, checkout and create branches from it",
+      "Built-in file editing: change files right in the app, without switching to an editor",
       "Hunk-by-hunk staging with an editable side-by-side diff",
-      "Conflict editor with accept current, incoming or both",
+      "Advanced conflict resolution editor: current and incoming changes side by side, accept either or both per conflict, and track how many are resolved",
       "Stash management: save, apply, pop and delete",
       "Patch import and export for sharing uncommitted changes",
     ],
