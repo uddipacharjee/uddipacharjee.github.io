@@ -1,0 +1,56 @@
+# Build verification.
+#
+# This repo publishes via GitHub Pages "Deploy from a branch" (main -> /docs),
+# so the built site is committed in docs/ and GitHub serves it directly — there
+# is no deploy step here. An actions/deploy-pages job would in fact fail, since
+# that action requires the Pages source to be set to "GitHub Actions".
+#
+# This workflow just checks that the site still builds, and warns if docs/ was
+# not rebuilt alongside the source changes.
+name: Build
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type check
+        run: npm run typecheck
+
+      - name: Build
+        run: npm run build
+
+      - name: Check docs/ is up to date
+        run: |
+          if [ -n "$(git status --porcelain docs)" ]; then
+            echo "::warning::docs/ differs from the committed build."
+            echo "Run 'npm run build' and commit docs/ so GitHub Pages serves the current site."
+            git status --short docs | head -20
+          else
+            echo "docs/ matches the committed build."
+          fi
