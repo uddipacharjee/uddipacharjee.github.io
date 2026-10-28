@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Uddip Acharjee Shuvo — Blog</title>
+    <link>https://uddipacharjee.github.io/blogs/</link>
+    <description>Notes from building Java and Spring services: what worked, what broke, and why.</description>
+    <language>en</language>
+    <atom:link href="https://uddipacharjee.github.io/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Process a Million-Row File with Spring Batch</title>
+      <link>https://uddipacharjee.github.io/blogs/spring-batch-process-million-row-file/</link>
+      <guid isPermaLink="true">https://uddipacharjee.github.io/blogs/spring-batch-process-million-row-file/</guid>
+      <description>Load a million-row CSV or fixed-width file into PostgreSQL with Spring Batch 5: chunk-oriented steps, fast batched writes, async launch and safe restarts.</description>
+      <category>Spring Batch</category>
+      <pubDate>Wed, 28 Oct 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Spring Modulith: Build a Modular Monolith in Spring Boot</title>
+      <link>https://uddipacharjee.github.io/blogs/spring-modulith-modular-monolith/</link>
+      <guid isPermaLink="true">https://uddipacharjee.github.io/blogs/spring-modulith-modular-monolith/</guid>
+      <description>Give a Spring Boot monolith real module boundaries with Spring Modulith: package conventions, verify() tests, named interfaces, events and generated docs.</description>
+      <category>Architecture</category>
+      <pubDate>Wed, 28 Oct 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Transactional Outbox with Spring Modulith Events</title>
+      <link>https://uddipacharjee.github.io/blogs/spring-modulith-transactional-outbox/</link>
+      <guid isPermaLink="true">https://uddipacharjee.github.io/blogs/spring-modulith-transactional-outbox/</guid>
+      <description>Use Spring Modulith’s event publication registry as a transactional outbox: @ApplicationModuleListener, JDBC or JPA setup, retries, cleanup and Kafka.</description>
+      <category>Architecture</category>
+      <pubDate>Wed, 28 Oct 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Fix JPA N+1 Queries and Open-in-View in Spring Boot</title>
+      <link>https://uddipacharjee.github.io/blogs/spring-boot-jpa-n-plus-one-open-in-view/</link>
+      <guid isPermaLink="true">https://uddipacharjee.github.io/blogs/spring-boot-jpa-n-plus-one-open-in-view/</guid>
+      <description>Find and fix Hibernate N+1 queries in Spring Boot with join fetch, entity graphs, batch fetching and DTOs, and why spring.jpa.open-in-view=false matters.</description>
+      <category>Persistence</category>
+      <pubDate>Wed, 28 Oct 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Virtual Threads in Spring Boot: When They Actually Help</title>
+      <link>https://uddipacharjee.github.io/blogs/virtual-threads-spring-boot-java-21/</link>
+      <guid isPermaLink="true">https://uddipacharjee.github.io/blogs/virtual-threads-spring-boot-java-21/</guid>
+      <description>Enable virtual threads in Spring Boot on Java 21, understand pinning and connection-pool limits, and measure whether they help your blocking I/O workload.</description>
+      <category>Concurrency</category>
+      <pubDate>Wed, 28 Oct 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Spring Boot REST Errors with ProblemDetail and Validation</title>
+      <link>https://uddipacharjee.github.io/blogs/spring-boot-problemdetail-validation/</link>
+      <guid isPermaLink="true">https://uddipacharjee.github.io/blogs/spring-boot-problemdetail-validation/</guid>
+      <description>Return consistent RFC 9457 error responses from Spring Boot: Bean Validation, ProblemDetail, @RestControllerAdvice, field errors, tests and OpenAPI docs.</description>
+      <category>APIs</category>
+      <pubDate>Wed, 28 Oct 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Testing Spring Boot: Slices, Testcontainers and JaCoCo</title>
+      <link>https://uddipacharjee.github.io/blogs/spring-boot-testing-testcontainers-jacoco/</link>
+      <guid isPermaLink="true">https://uddipacharjee.github.io/blogs/spring-boot-testing-testcontainers-jacoco/</guid>
+      <description>A practical Spring Boot testing setup: fast slice tests, real PostgreSQL with Testcontainers and @ServiceConnection, and a JaCoCo coverage gate in Gradle.</description>
+      <category>Testing</category>
+      <pubDate>Wed, 28 Oct 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Java Records vs Lombok: Do You Still Need Lombok?</title>
+      <link>https://uddipacharjee.github.io/blogs/java-records-vs-lombok/</link>
+      <guid isPermaLink="true">https://uddipacharjee.github.io/blogs/java-records-vs-lombok/</guid>
+      <description>Java records vs Lombok’s @Value, @Data and @Builder on Java 21: where records replace Lombok, where they can’t (JPA entities) and how to migrate safely.</description>
+      <category>Java</category>
+      <pubDate>Wed, 28 Oct 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Eclipse Dataspace Components (EDC) with Spring Boot</title>
+      <link>https://uddipacharjee.github.io/blogs/eclipse-dataspace-components-edc-spring-boot/</link>
+      <guid isPermaLink="true">https://uddipacharjee.github.io/blogs/eclipse-dataspace-components-edc-spring-boot/</guid>
+      <description>How EDC connectors share data: assets, ODRL policies and contract definitions via the Management API, called from a Spring Boot onboarding service.</description>
+      <category>Data spaces</category>
+      <pubDate>Wed, 28 Oct 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Spring AI: RAG and an MCP Server in Spring Boot</title>
+      <link>https://uddipacharjee.github.io/blogs/spring-ai-rag-mcp-server/</link>
+      <guid isPermaLink="true">https://uddipacharjee.github.io/blogs/spring-ai-rag-mcp-server/</guid>
+      <description>Build retrieval-augmented generation with Spring AI 2, PGVector and a ChatClient advisor, then expose the same search to AI assistants as an MCP tool.</description>
+      <category>AI</category>
+      <pubDate>Wed, 28 Oct 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Best Git GUI Clients in 2026: 9 Desktop Apps Compared</title>
+      <link>https://uddipacharjee.github.io/blogs/best-git-gui-clients/</link>
+      <guid isPermaLink="true">https://uddipacharjee.github.io/blogs/best-git-gui-clients/</guid>
+      <description>Nine Git GUI clients compared for 2026: GitKraken, Fork, Tower, Sourcetree, GitHub Desktop, Sublime Merge, SmartGit, TortoiseGit and LithiumGit.</description>
+      <category>Developer tools</category>
+      <pubDate>Wed, 28 Oct 2026 00:00:00 GMT</pubDate>
+    </item>
+  </channel>
+</rss>

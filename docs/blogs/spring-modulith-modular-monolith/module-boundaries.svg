@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 476" width="640" height="476" role="img" aria-labelledby="title desc">
+  <title id="title">Spring Modulith module boundaries in a shop application</title>
+  <desc id="desc">Four modules: catalog, orders, inventory and an open common module. Orders uses the ProductService interface from the catalog module's API, which is allowed. Orders reaching into catalog's internal ProductRepository is rejected by modules.verify(). Inventory listens to OrderCreatedEvent, which orders exposes through a named interface called order-events. Catalog uses PagedResult from the open common module.</desc>
+  <style>
+    .bg { fill: #f6f7f9; }
+    .h { fill: #161b22; font: 600 16px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    .t { fill: #161b22; font: 500 14px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    .s { fill: #566070; font: 400 12.5px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    .region { fill: #e6ebf0; }
+    .api { fill: #ffffff; stroke: #9fb5c7; stroke-width: 1.5; }
+    .internal { fill: none; stroke: #9aa6b4; stroke-width: 1.25; stroke-dasharray: 5 4; }
+    .ok { stroke: #3d6a8a; stroke-width: 2; fill: none; }
+    .bad { stroke: #b42318; stroke-width: 2; fill: none; stroke-dasharray: 6 4; }
+    .line { stroke: #566070; stroke-width: 1.5; fill: none; }
+    .head-ok, .ok-t { fill: #3d6a8a; }
+    .head-bad, .bad-t { fill: #b42318; }
+    .head { fill: #566070; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #11151b; }
+      .h, .t { fill: #e7eaef; }
+      .s { fill: #a4adba; }
+      .region { fill: #1c252e; }
+      .api { fill: #171c23; stroke: #3d5568; }
+      .internal { stroke: #4a5a6a; }
+      .ok { stroke: #9cc1dc; }
+      .bad { stroke: #f97066; }
+      .line { stroke: #a4adba; }
+      .head-ok, .ok-t { fill: #9cc1dc; }
+      .head-bad, .bad-t { fill: #f97066; }
+      .head { fill: #a4adba; }
+    }
+  </style>
+  <defs>
+    <marker id="a-ok" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="head-ok"/></marker>
+    <marker id="a-bad" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="head-bad"/></marker>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="head"/></marker>
+  </defs>
+
+  <rect class="bg" width="640" height="476"/>
+  <text class="h" x="16" y="30">Modules in the shop application</text>
+
+  <!-- catalog -->
+  <rect class="region" x="16" y="48" width="260" height="178" rx="12"/>
+  <text class="h" x="32" y="76">catalog</text>
+  <rect class="api" x="32" y="90" width="228" height="56" rx="8"/>
+  <text class="s" x="46" y="110">API (top-level package)</text>
+  <text class="t" x="46" y="132">ProductService, Product</text>
+  <rect class="internal" x="32" y="158" width="228" height="54" rx="8"/>
+  <text class="s" x="46" y="178">internal (domain, web)</text>
+  <text class="t" x="46" y="199">ProductRepository, …</text>
+
+  <!-- orders -->
+  <rect class="region" x="364" y="48" width="260" height="178" rx="12"/>
+  <text class="h" x="380" y="76">orders</text>
+  <rect class="internal" x="380" y="90" width="228" height="56" rx="8"/>
+  <text class="s" x="394" y="110">internal (domain, web)</text>
+  <text class="t" x="394" y="132">OrderService, …</text>
+  <rect class="api" x="380" y="158" width="228" height="54" rx="8"/>
+  <text class="s" x="394" y="178">named interface order-events</text>
+  <text class="t" x="394" y="199">OrderCreatedEvent</text>
+
+  <!-- orders -> catalog: allowed and rejected -->
+  <line class="ok" x1="380" y1="114" x2="263" y2="114" marker-end="url(#a-ok)"/>
+  <text class="s ok-t" x="320" y="106" text-anchor="middle">uses</text>
+  <line class="bad" x1="380" y1="134" x2="263" y2="184" marker-end="url(#a-bad)"/>
+  <text class="s bad-t" x="330" y="190" text-anchor="middle">✗ internal</text>
+
+  <!-- common -->
+  <rect class="region" x="16" y="290" width="260" height="96" rx="12"/>
+  <text class="h" x="32" y="318">common</text>
+  <text class="s" x="110" y="318">(open module)</text>
+  <text class="t" x="32" y="344">PagedResult</text>
+  <text class="s" x="32" y="366">any module may use its types</text>
+  <line class="line" x1="146" y1="226" x2="146" y2="286" marker-end="url(#a)"/>
+  <text class="s" x="156" y="262">uses PagedResult</text>
+
+  <!-- inventory -->
+  <rect class="region" x="364" y="290" width="260" height="96" rx="12"/>
+  <text class="h" x="380" y="318">inventory</text>
+  <text class="t" x="380" y="344">InventoryService</text>
+  <text class="s" x="380" y="366">listens to OrderCreatedEvent</text>
+  <line class="ok" x1="494" y1="290" x2="494" y2="215" marker-end="url(#a-ok)"/>
+  <text class="s ok-t" x="486" y="258" text-anchor="end">listens</text>
+
+  <!-- legend -->
+  <line class="ok" x1="16" y1="424" x2="56" y2="424" marker-end="url(#a-ok)"/>
+  <text class="s" x="68" y="428">Allowed: depends on another module’s API or a named interface</text>
+  <line class="bad" x1="16" y1="452" x2="56" y2="452" marker-end="url(#a-bad)"/>
+  <text class="s" x="68" y="456">Rejected by modules.verify(): reaches into an internal package</text>
+</svg>
