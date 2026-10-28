@@ -46,9 +46,12 @@ export function postMetadata(slug: string): Metadata {
  */
 export default function BlogPost({
   slug,
+  schema = [],
   children,
 }: {
   slug: string;
+  /** Extra JSON-LD for this post, e.g. an ItemList or FAQPage. */
+  schema?: Record<string, unknown>[];
   children: ReactNode;
 }) {
   const post = getPost(slug);
@@ -88,6 +91,7 @@ export default function BlogPost({
         { "@type": "ListItem", position: 3, name: post.title, item: url },
       ],
     },
+    ...schema,
   ];
 
   return (

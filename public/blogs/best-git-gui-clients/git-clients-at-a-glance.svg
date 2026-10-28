@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 446" width="640" height="446" role="img" aria-labelledby="title desc">
+  <title id="title">Git GUI clients at a glance: platforms, price and license (October 2026)</title>
+  <desc id="desc">Fork: Windows, macOS; paid. GitHub Desktop: Windows, macOS; free to use, open source. GitKraken Desktop: Windows, macOS, Linux; free with limits. LithiumGit: Windows, macOS, Linux; free to use. SmartGit: Windows, macOS, Linux; free with limits. Sourcetree: Windows, macOS; free to use. Sublime Merge: Windows, macOS, Linux; paid. TortoiseGit: Windows; free to use, open source. Tower: Windows, macOS; paid.</desc>
+  <style>
+    .bg { fill: #f6f7f9; }
+    .t { fill: #161b22; font: 500 14px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    .s { fill: #566070; font: 400 12.5px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    .stripe { fill: #eceff3; }
+    .yes { fill: #3d6a8a; }
+    .ring { fill: none; stroke: #3d6a8a; stroke-width: 1.5; }
+    .no { fill: #b9c2cc; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #11151b; }
+      .t { fill: #e7eaef; }
+      .s { fill: #a4adba; }
+      .stripe { fill: #171c23; }
+      .yes { fill: #9cc1dc; }
+      .ring { stroke: #9cc1dc; }
+      .no { fill: #3a4450; }
+    }
+  </style>
+
+  <rect class="bg" width="640" height="446"/>
+  <text class="s" x="276" y="40" text-anchor="middle">Windows</text>
+  <text class="s" x="352" y="40" text-anchor="middle">macOS</text>
+  <text class="s" x="428" y="40" text-anchor="middle">Linux</text>
+  <text class="s" x="504" y="40" text-anchor="middle">Free to use</text>
+  <text class="s" x="580" y="40" text-anchor="middle">Open source</text>
+
+  <rect class="stripe" x="8" y="64" width="624" height="34" rx="6"/>
+  <text class="t" x="20" y="86">Fork</text>
+  <circle class="yes" cx="276" cy="81" r="7"/>
+  <circle class="yes" cx="352" cy="81" r="7"/>
+  <circle class="no" cx="428" cy="81" r="3"/>
+  <circle class="no" cx="504" cy="81" r="3"/>
+  <circle class="no" cx="580" cy="81" r="3"/>
+  
+  <text class="t" x="20" y="120">GitHub Desktop</text>
+  <circle class="yes" cx="276" cy="115" r="7"/>
+  <circle class="yes" cx="352" cy="115" r="7"/>
+  <circle class="no" cx="428" cy="115" r="3"/>
+  <circle class="yes" cx="504" cy="115" r="7"/>
+  <circle class="yes" cx="580" cy="115" r="7"/>
+  <rect class="stripe" x="8" y="132" width="624" height="34" rx="6"/>
+  <text class="t" x="20" y="154">GitKraken Desktop</text>
+  <circle class="yes" cx="276" cy="149" r="7"/>
+  <circle class="yes" cx="352" cy="149" r="7"/>
+  <circle class="yes" cx="428" cy="149" r="7"/>
+  <circle class="ring" cx="504" cy="149" r="7"/><path class="yes" d="M504 142 A7 7 0 0 0 504 156 Z"/>
+  <circle class="no" cx="580" cy="149" r="3"/>
+  
+  <text class="t" x="20" y="188">LithiumGit</text>
+  <circle class="yes" cx="276" cy="183" r="7"/>
+  <circle class="yes" cx="352" cy="183" r="7"/>
+  <circle class="yes" cx="428" cy="183" r="7"/>
+  <circle class="yes" cx="504" cy="183" r="7"/>
+  <circle class="no" cx="580" cy="183" r="3"/>
+  <rect class="stripe" x="8" y="200" width="624" height="34" rx="6"/>
+  <text class="t" x="20" y="222">SmartGit</text>
+  <circle class="yes" cx="276" cy="217" r="7"/>
+  <circle class="yes" cx="352" cy="217" r="7"/>
+  <circle class="yes" cx="428" cy="217" r="7"/>
+  <circle class="ring" cx="504" cy="217" r="7"/><path class="yes" d="M504 210 A7 7 0 0 0 504 224 Z"/>
+  <circle class="no" cx="580" cy="217" r="3"/>
+  
+  <text class="t" x="20" y="256">Sourcetree</text>
+  <circle class="yes" cx="276" cy="251" r="7"/>
+  <circle class="yes" cx="352" cy="251" r="7"/>
+  <circle class="no" cx="428" cy="251" r="3"/>
+  <circle class="yes" cx="504" cy="251" r="7"/>
+  <circle class="no" cx="580" cy="251" r="3"/>
+  <rect class="stripe" x="8" y="268" width="624" height="34" rx="6"/>
+  <text class="t" x="20" y="290">Sublime Merge</text>
+  <circle class="yes" cx="276" cy="285" r="7"/>
+  <circle class="yes" cx="352" cy="285" r="7"/>
+  <circle class="yes" cx="428" cy="285" r="7"/>
+  <circle class="no" cx="504" cy="285" r="3"/>
+  <circle class="no" cx="580" cy="285" r="3"/>
+  
+  <text class="t" x="20" y="324">TortoiseGit</text>
+  <circle class="yes" cx="276" cy="319" r="7"/>
+  <circle class="no" cx="352" cy="319" r="3"/>
+  <circle class="no" cx="428" cy="319" r="3"/>
+  <circle class="yes" cx="504" cy="319" r="7"/>
+  <circle class="yes" cx="580" cy="319" r="7"/>
+  <rect class="stripe" x="8" y="336" width="624" height="34" rx="6"/>
+  <text class="t" x="20" y="358">Tower</text>
+  <circle class="yes" cx="276" cy="353" r="7"/>
+  <circle class="yes" cx="352" cy="353" r="7"/>
+  <circle class="no" cx="428" cy="353" r="3"/>
+  <circle class="no" cx="504" cy="353" r="3"/>
+  <circle class="no" cx="580" cy="353" r="3"/>
+
+  <circle class="yes" cx="26" cy="400" r="7"/><text class="s" x="40" y="404">yes</text>
+  <circle class="ring" cx="96" cy="400" r="7"/><path class="yes" d="M96 393 A7 7 0 0 0 96 407 Z"/><text class="s" x="110" y="404">with limits: GitKraken for local and public repos, SmartGit for non-commercial use</text>
+  <circle class="no" cx="26" cy="424" r="3"/><text class="s" x="40" y="428">no (GitHub Desktop runs on Linux only through an unofficial community build)</text>
+</svg>

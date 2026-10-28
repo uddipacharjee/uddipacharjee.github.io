@@ -140,6 +140,17 @@ export const posts: Post[] = [
     tags: ["Spring AI", "RAG", "MCP", "PGVector", "Spring Boot", "Java"],
     image: "/blogs/spring-ai-rag-mcp-server/rag-pipeline.svg",
   },
+  {
+    slug: "best-git-gui-clients",
+    title: "Best Git GUI Clients in 2026: 9 Desktop Apps Compared",
+    description:
+      "Nine Git GUI clients compared for 2026: GitKraken, Fork, Tower, Sourcetree, GitHub Desktop, Sublime Merge, SmartGit, TortoiseGit and LithiumGit.",
+    category: "Developer tools",
+    datePublished: "2026-10-28",
+    readingMinutes: 14,
+    tags: ["Git", "Git GUI", "Developer tools", "Version control", "IntelliJ IDEA", "VS Code"],
+    image: "/blogs/best-git-gui-clients/git-clients-at-a-glance.svg",
+  },
 ];
 
 export const postsNewestFirst = [...posts].sort((a, b) =>
