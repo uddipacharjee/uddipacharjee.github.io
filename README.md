@@ -1,8 +1,9 @@
 # uddipacharjee.github.io
 
-Personal portfolio of **Uddip Acharjee Shuvo** — Java backend engineer.
+Personal portfolio of **Uddip Acharjee Shuvo** — software engineer and researcher:
+industry experience, publications, skills and a blog.
 
-Live at <https://uddipacharjee.github.io/>.
+Live at <https://uddipacharjee.com/>.
 
 Built on the same setup as [tulshidas39.github.io](https://github.com/TulshiDas39/tulshidas39.github.io),
 restyled as a light, minimal, typography-led page.
@@ -14,7 +15,7 @@ restyled as a light, minimal, typography-led page.
 | Framework | Next.js 16 (App Router, static export, Turbopack) |
 | UI | React 19, Tailwind CSS 4 |
 | Type | Instrument Sans (the hero name and post titles use its condensed width); JetBrains Mono for code in posts |
-| Hosting | GitHub Pages, served from `main` → `/docs` |
+| Hosting | GitHub Pages, deployed by GitHub Actions; domain on Cloudflare DNS |
 
 There is no client-side JavaScript of our own: every component is a server
 component, and the one entrance animation in the hero is plain CSS.
@@ -31,7 +32,7 @@ npm run dev       # http://localhost:3000
 | Script | Does |
 |---|---|
 | `npm run dev` | Dev server with Turbopack |
-| `npm run build` | Static export → `docs/` (see below) |
+| `npm run build` | Static export → `docs/` (git-ignored; see Deployment) |
 | `npm run lint` | ESLint — see the note below |
 | `npm run typecheck` | `tsc --noEmit` |
 
@@ -52,18 +53,22 @@ npm install -D typescript@^5.9.3 eslint@^9.39.5
 **All site content lives in [`data/resume.ts`](data/resume.ts).** Nothing is hard-coded
 in the components.
 
-The first draft was assembled from the public GitHub profile: name, location and
-photo from the profile itself, skills from the build files of the Java repositories
-on it, and the "lately exploring" line from recent forks. The summary and focus-area
-copy is a draft written from that evidence — rewrite it in your own words.
-
-Optional fields that are empty today and appear on the page as soon as they are set:
-
-| Field | Shows up as |
+| Export | Section |
 |---|---|
-| `profile.email` | Email link in the hero and footer |
-| `socials.linkedin` | LinkedIn link in the hero and footer |
-| `profile.resumeFile` | "Résumé (PDF)" link — drop the PDF in `public/assets/` first |
+| `profile`, `focusAreas` | Hero and About |
+| `experience` | Experience — one entry per role, newest first |
+| `education`, `awards` | Under the roles in Experience |
+| `researchInterests`, `publications` | Research — newest first; your name is bolded in author lists |
+| `skillLayers`, `tooling` | Skills |
+| `socials` | Profile links in the hero and footer (GitHub, LinkedIn, Google Scholar) |
+
+Experience and education come from the résumé; publications from Google
+Scholar, checked against Crossref and arXiv. When a new paper comes out, add it
+to the top of `publications`.
+
+`profile.resumeFile` is empty today. Point it at a PDF in `public/assets/` to add a
+"Résumé (PDF)" link — remove the phone number and home address from it first,
+since everything in `public/` is published.
 
 ### Profile photo
 
@@ -191,7 +196,7 @@ The site is **indexable** and set up for search:
 | Internal links | "Writing" section on the home page, related posts under each post |
 
 After the first deploy, add the site to [Google Search Console](https://search.google.com/search-console)
-and submit `https://uddipacharjee.github.io/sitemap.xml`. Search Console's HTML-tag
+and submit `https://uddipacharjee.com/sitemap.xml`. Search Console's HTML-tag
 verification can be added through `metadata.verification` in `app/layout.tsx`.
 
 To keep the site out of search results instead, set `robots` in `app/layout.tsx` to
@@ -215,7 +220,7 @@ app/
 components/         One component per section, plus Nav / Section / ProfileLinks / Writing
   blog/             BlogPost frame + CodeBlock / Callout / Figure for posts
 data/
-  resume.ts         Profile, skills and nav content
+  resume.ts         Profile, experience, publications, skills and nav content
   blogs.ts          Every post's title, dates, tags and description; related-post lookup
 lib/
   dates.ts          Post date formatting
@@ -223,40 +228,46 @@ lib/
 public/blogs/       One folder of SVG diagrams per post
 scripts/
   postbuild.mjs     Moves the export to docs/
-docs/               The built site — committed, served by GitHub Pages
+docs/               Build output (git-ignored); the deploy workflow uploads it
 ```
 
 ## Deployment
 
-The site is served by GitHub Pages straight from the repo:
-**Settings → Pages → Deploy from a branch → `main` / `/docs`.**
+Pushing to `main` publishes the site. [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)
+type-checks, builds, and deploys the export to GitHub Pages, usually within two
+minutes; watch it under the repo's **Actions** tab. Pull requests run the same
+build as a check but never deploy. No local Node install is needed to publish.
 
-That means **`docs/` is build output that is deliberately committed.** To publish:
+Repo settings this relies on:
 
-```bash
-npm run build          # writes docs/
-git add -A
-git commit -m "build: publish site"
-git push
-```
+- **Settings → Pages → Source: GitHub Actions.**
+- **Settings → Pages → Custom domain: `uddipacharjee.com`**, with *Enforce HTTPS* on.
+  Pages ignores a `CNAME` file for Actions deployments, so the domain lives here.
 
-GitHub serves the new commit within a minute or so.
+### DNS (Cloudflare)
+
+| Type | Name | Content | Proxy |
+|---|---|---|---|
+| A | `@` | `185.199.108.153` | DNS only |
+| A | `@` | `185.199.109.153` | DNS only |
+| A | `@` | `185.199.110.153` | DNS only |
+| A | `@` | `185.199.111.153` | DNS only |
+| CNAME | `www` | `uddipacharjee.github.io` | DNS only |
+
+Keep the records **DNS only** (grey cloud) so GitHub can issue and renew the HTTPS
+certificate. If you later turn the Cloudflare proxy on, set Cloudflare's SSL/TLS
+mode to **Full (strict)**, or visitors get a redirect loop.
 
 ### How the build lands in `docs/`
 
 `next build` with `output: "export"` always writes to `out/`. The `postbuild` script
-(run automatically by npm after `build`) replaces `docs/` with that export.
+(run automatically by npm after `build`) replaces `docs/` with that export, and the
+workflow uploads `docs/`.
 
 - **`distDir` stays at its default `.next`.** It is also where `next dev` writes, so
-  pointing it at `docs/` would fill the committed folder with dev-server artifacts.
-- **`public/.nojekyll` is load-bearing.** Branch-served Pages content is run through
-  Jekyll, which skips directories starting with an underscore — without it the
-  entire `_next/` folder is dropped and the site renders unstyled.
+  pointing it at `docs/` would mix dev-server artifacts into the build output.
+- **`public/.nojekyll`** is kept from the branch-deploy days. It is harmless with
+  Actions deployments, and it keeps `_next/` intact if the site is ever served
+  from a branch again.
 - On Windows, close any terminal or Explorer window that is inside `docs/` before
   building, or the postbuild step fails with `EBUSY`.
-
-### CI
-
-[`.github/workflows/build.yml`](.github/workflows/build.yml) type-checks and builds on
-every push and PR, and warns if `docs/` was not rebuilt alongside the source. It does
-**not** deploy.

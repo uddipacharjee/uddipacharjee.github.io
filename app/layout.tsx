@@ -3,7 +3,7 @@ import { Instrument_Sans } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
-import { profile, siteUrl, socials } from "@/data/resume";
+import { education, experience, profile, siteUrl, socials } from "@/data/resume";
 import { alternatesFor } from "@/lib/seo";
 
 // One family for everything. The width axis lets the hero name run
@@ -15,7 +15,7 @@ const instrumentSans = Instrument_Sans({
   display: "swap",
 });
 
-const description = `${profile.role} in ${profile.location}, building Spring Boot services, Spring Batch pipelines and integration APIs on Java 21 and PostgreSQL.`;
+const description = `${profile.role} in ${profile.location}: Java microservices for airlines and high-traffic platforms, and research on LLMs for biology and health.`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -28,9 +28,11 @@ export const metadata: Metadata = {
     profile.name,
     "Java developer",
     "Spring Boot",
-    "Spring Batch",
+    "microservices",
+    "NDC airline integration",
     "backend engineer Bangladesh",
-    "PostgreSQL",
+    "machine learning research",
+    "LLM agents bioinformatics",
   ],
   authors: [{ name: profile.name, url: siteUrl }],
   creator: profile.name,
@@ -85,8 +87,11 @@ const personJsonLd = {
     addressLocality: "Dhaka",
     addressCountry: "BD",
   },
-  sameAs: [socials.github, socials.linkedin].filter(Boolean),
-  knowsAbout: ["Java", "Spring Boot", "Spring Batch", "Spring Modulith", "PostgreSQL"],
+  sameAs: [socials.github, socials.linkedin, socials.scholar].filter(Boolean),
+  ...(profile.email && { email: `mailto:${profile.email}` }),
+  worksFor: { "@type": "Organization", name: experience[0].company },
+  alumniOf: education.map((e) => ({ "@type": "CollegeOrUniversity", name: e.school })),
+  knowsAbout: ["Java", "Spring Boot", "Microservices", "NDC", "Machine learning", "Large language models", "Bioinformatics"],
   description: profile.intro,
 };
 

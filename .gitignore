@@ -18,8 +18,8 @@
 # Intermediate export dir; postbuild moves it to docs/.
 /out/
 
-# NOTE: docs/ is the built site and is intentionally COMMITTED —
-# GitHub Pages serves it from main -> /docs. Do not ignore it.
+# Built site; GitHub Actions builds and deploys it (.github/workflows/deploy.yml).
+/docs/
 
 # production
 /build
