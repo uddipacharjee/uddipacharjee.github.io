@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 446" width="640" height="446" role="img" aria-labelledby="title desc">
   <title id="title">Git GUI clients at a glance: platforms, price and license (October 2026)</title>
-  <desc id="desc">Fork: Windows, macOS; paid. GitHub Desktop: Windows, macOS; free to use, open source. GitKraken Desktop: Windows, macOS, Linux; free with limits. LithiumGit: Windows, macOS, Linux; free to use. SmartGit: Windows, macOS, Linux; free with limits. Sourcetree: Windows, macOS; free to use. Sublime Merge: Windows, macOS, Linux; paid. TortoiseGit: Windows; free to use, open source. Tower: Windows, macOS; paid.</desc>
+  <desc id="desc">GitHub Desktop: Windows, macOS; free to use, open source. LithiumGit: Windows, macOS, Linux; free to use. Fork: Windows, macOS; paid. GitKraken Desktop: Windows, macOS, Linux; free with limits. SmartGit: Windows, macOS, Linux; free with limits. Sourcetree: Windows, macOS; free to use. Sublime Merge: Windows, macOS, Linux; paid. TortoiseGit: Windows; free to use, open source. Tower: Windows, macOS; paid.</desc>
   <style>
     .bg { fill: #f6f7f9; }
     .t { fill: #161b22; font: 500 14px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
@@ -28,32 +28,32 @@
   <text class="s" x="580" y="40" text-anchor="middle">Open source</text>
 
   <rect class="stripe" x="8" y="64" width="624" height="34" rx="6"/>
-  <text class="t" x="20" y="86">Fork</text>
+  <text class="t" x="20" y="86">GitHub Desktop</text>
   <circle class="yes" cx="276" cy="81" r="7"/>
   <circle class="yes" cx="352" cy="81" r="7"/>
   <circle class="no" cx="428" cy="81" r="3"/>
-  <circle class="no" cx="504" cy="81" r="3"/>
-  <circle class="no" cx="580" cy="81" r="3"/>
+  <circle class="yes" cx="504" cy="81" r="7"/>
+  <circle class="yes" cx="580" cy="81" r="7"/>
   
-  <text class="t" x="20" y="120">GitHub Desktop</text>
+  <text class="t" x="20" y="120">LithiumGit</text>
   <circle class="yes" cx="276" cy="115" r="7"/>
   <circle class="yes" cx="352" cy="115" r="7"/>
-  <circle class="no" cx="428" cy="115" r="3"/>
+  <circle class="yes" cx="428" cy="115" r="7"/>
   <circle class="yes" cx="504" cy="115" r="7"/>
-  <circle class="yes" cx="580" cy="115" r="7"/>
+  <circle class="no" cx="580" cy="115" r="3"/>
   <rect class="stripe" x="8" y="132" width="624" height="34" rx="6"/>
-  <text class="t" x="20" y="154">GitKraken Desktop</text>
+  <text class="t" x="20" y="154">Fork</text>
   <circle class="yes" cx="276" cy="149" r="7"/>
   <circle class="yes" cx="352" cy="149" r="7"/>
-  <circle class="yes" cx="428" cy="149" r="7"/>
-  <circle class="ring" cx="504" cy="149" r="7"/><path class="yes" d="M504 142 A7 7 0 0 0 504 156 Z"/>
+  <circle class="no" cx="428" cy="149" r="3"/>
+  <circle class="no" cx="504" cy="149" r="3"/>
   <circle class="no" cx="580" cy="149" r="3"/>
   
-  <text class="t" x="20" y="188">LithiumGit</text>
+  <text class="t" x="20" y="188">GitKraken Desktop</text>
   <circle class="yes" cx="276" cy="183" r="7"/>
   <circle class="yes" cx="352" cy="183" r="7"/>
   <circle class="yes" cx="428" cy="183" r="7"/>
-  <circle class="yes" cx="504" cy="183" r="7"/>
+  <circle class="ring" cx="504" cy="183" r="7"/><path class="yes" d="M504 176 A7 7 0 0 0 504 190 Z"/>
   <circle class="no" cx="580" cy="183" r="3"/>
   <rect class="stripe" x="8" y="200" width="624" height="34" rx="6"/>
   <text class="t" x="20" y="222">SmartGit</text>

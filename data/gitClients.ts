@@ -1,37 +1,12 @@
 import type { Tool } from "@/components/blog/ToolReview";
 
 /**
- * Git GUI clients reviewed in /blogs/best-git-gui-clients/, in alphabetical
- * order. Facts (prices, platforms, licenses, release years, features) were
+ * Git GUI clients reviewed in /blogs/best-git-gui-clients/, in the order the
+ * post lists them. Facts (prices, platforms, licenses, release years, features) were
  * checked against each vendor's own site, docs and repositories in October
  * 2026; update `dateModified` on the post when you refresh them.
  */
 export const gitClients: Tool[] = [
-  {
-    name: "Fork",
-    website: "https://git-fork.com",
-    bestFor: "a one-time purchase on macOS or Windows",
-    price: "$59.99 one-time, for personal and commercial use (free evaluation)",
-    priceSummary: "$59.99 once",
-    platforms: "macOS, Windows",
-    license: "Proprietary",
-    firstReleased: "2016 (macOS), 2018 (Windows)",
-    summary:
-      "A desktop client sold as a single purchase rather than a subscription, with frequent releases on both platforms. Its visual interactive rebase and conflict helper make history editing approachable without hiding what Git is doing.",
-    features: [
-      "Visual interactive rebase",
-      "Merge-conflict helper with a built-in resolver",
-      "Image diffs, blame and file history",
-      "Git LFS, submodules, Git-flow and worktrees",
-      "AI-assisted commit messages",
-    ],
-    strengths: [
-      "One payment covers one user on up to three machines",
-      "No account needed",
-      "Actively developed, with frequent releases on both platforms",
-    ],
-    limitations: ["No Linux version", "Paid once the evaluation ends"],
-  },
   {
     name: "GitHub Desktop",
     website: "https://github.com/apps/desktop",
@@ -62,6 +37,60 @@ export const gitClients: Tool[] = [
     ],
   },
   {
+    name: "LithiumGit",
+    website: "https://lithiumgit.com",
+    bestFor: "a free, graph-centred client on Windows, macOS or Linux",
+    price: "Free, including business use",
+    priceSummary: "Free",
+    platforms: "macOS, Windows, Linux",
+    license: "Proprietary freeware (closed source)",
+    firstReleased: "In development since 2021",
+    summary:
+      "A free client built around an interactive commit graph, where you merge, rebase, cherry-pick and branch by acting on the graph itself. It uses the Git you already have installed and works with any remote host.",
+    features: [
+      "Interactive graph: merge, rebase, cherry-pick, checkout and create branches from it",
+      "Hunk-by-hunk staging with an editable side-by-side diff",
+      "Conflict editor with accept current, incoming or both",
+      "Stash management: save, apply, pop and delete",
+      "Patch import and export for sharing uncommitted changes",
+    ],
+    strengths: [
+      "Free for commercial use, with no account or sign-in",
+      "Official builds for all three desktop platforms",
+      "Works with GitHub, GitLab, Bitbucket, Gerrit or any other remote",
+    ],
+    limitations: [
+      "Closed source, and pull requests are not accepted",
+      "Git must be installed separately",
+      "No documented interactive rebase, Git LFS, submodules or hosting integrations",
+    ],
+  },
+  {
+    name: "Fork",
+    website: "https://git-fork.com",
+    bestFor: "a one-time purchase on macOS or Windows",
+    price: "$59.99 one-time, for personal and commercial use (free evaluation)",
+    priceSummary: "$59.99 once",
+    platforms: "macOS, Windows",
+    license: "Proprietary",
+    firstReleased: "2016 (macOS), 2018 (Windows)",
+    summary:
+      "A desktop client sold as a single purchase rather than a subscription, with frequent releases on both platforms. Its visual interactive rebase and conflict helper make history editing approachable without hiding what Git is doing.",
+    features: [
+      "Visual interactive rebase",
+      "Merge-conflict helper with a built-in resolver",
+      "Image diffs, blame and file history",
+      "Git LFS, submodules, Git-flow and worktrees",
+      "AI-assisted commit messages",
+    ],
+    strengths: [
+      "One payment covers one user on up to three machines",
+      "No account needed",
+      "Actively developed, with frequent releases on both platforms",
+    ],
+    limitations: ["No Linux version", "Paid once the evaluation ends"],
+  },
+  {
     name: "GitKraken Desktop",
     website: "https://www.gitkraken.com/git-client",
     bestFor: "teams that want integrations and a polished graph on any OS",
@@ -89,35 +118,6 @@ export const gitClients: Tool[] = [
       "Private repositories need a paid plan",
       "Subscription only",
       "Self-hosted GitHub and GitLab integrations need the higher tiers",
-    ],
-  },
-  {
-    name: "LithiumGit",
-    website: "https://lithiumgit.com",
-    bestFor: "a free, graph-centred client on Windows, macOS or Linux",
-    price: "Free, including business use",
-    priceSummary: "Free",
-    platforms: "macOS, Windows, Linux",
-    license: "Proprietary freeware (closed source)",
-    firstReleased: "In development since 2021",
-    summary:
-      "A free client built around an interactive commit graph, where you merge, rebase, cherry-pick and branch by acting on the graph itself. It uses the Git you already have installed and works with any remote host.",
-    features: [
-      "Interactive graph: merge, rebase, cherry-pick, checkout and create branches from it",
-      "Hunk-by-hunk staging with an editable side-by-side diff",
-      "Conflict editor with accept current, incoming or both",
-      "Stash management: save, apply, pop and delete",
-      "Patch import and export for sharing uncommitted changes",
-    ],
-    strengths: [
-      "Free for commercial use, with no account or sign-in",
-      "Official builds for all three desktop platforms",
-      "Works with GitHub, GitLab, Bitbucket, Gerrit or any other remote",
-    ],
-    limitations: [
-      "Closed source, and pull requests are not accepted",
-      "Git must be installed separately",
-      "No documented interactive rebase, Git LFS, submodules or hosting integrations",
     ],
   },
   {

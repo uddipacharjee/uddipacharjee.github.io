@@ -184,7 +184,7 @@ export default function Post() {
         </li>
       </ul>
 
-      <h2>The clients, A to Z</h2>
+      <h2>The clients</h2>
       {gitClients.map((tool) => (
         <ToolReview key={tool.name} tool={tool} />
       ))}
