@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 412" width="640" height="412" role="img" aria-labelledby="title desc">
+  <title id="title">How spring.jpa.open-in-view changes when the database connection is held</title>
+  <desc id="desc">A request passes through the controller, a transactional service, back to the controller and then JSON serialization. With open-in-view enabled, the persistence context stays open for the whole request, so lazy associations touched during JSON serialization run extra SELECT statements and the database connection is held until the response is written. With open-in-view disabled, the persistence context and connection only live inside the transactional service; touching an unloaded association later throws LazyInitializationException, which shows exactly what the service forgot to fetch.</desc>
+  <style>
+    .bg { fill: #f6f7f9; }
+    .t { fill: #161b22; font: 600 15px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    .p { fill: #161b22; font: 500 13px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    .s { fill: #566070; font: 400 12.5px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    .m { font-family: ui-monospace, "Cascadia Code", Consolas, Menlo, monospace; }
+    .phase { fill: #ffffff; stroke: #c3cfda; stroke-width: 1.25; }
+    .tx { fill: #e6ebf0; stroke: #9fb5c7; stroke-width: 1.25; }
+    .held { fill: #3d6a8a; }
+    .held-t { fill: #3d6a8a; }
+    .bad { fill: #b42318; }
+    .bad-t { fill: #b42318; }
+    .tick { stroke: #b42318; stroke-width: 2; }
+    .rule { stroke: #e2e6ec; stroke-width: 1; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #11151b; }
+      .t, .p { fill: #e7eaef; }
+      .s { fill: #a4adba; }
+      .phase { fill: #171c23; stroke: #33404c; }
+      .tx { fill: #1c252e; stroke: #3d5568; }
+      .held, .held-t { fill: #9cc1dc; }
+      .bad, .bad-t { fill: #f97066; }
+      .tick { stroke: #f97066; }
+      .rule { stroke: #252b34; }
+    }
+  </style>
+
+  <rect class="bg" width="640" height="412"/>
+
+  <!-- Request phases -->
+  <text class="s" x="16" y="24">One HTTP request, left to right</text>
+  <rect class="phase" x="16" y="36" width="104" height="44" rx="6"/>
+  <text class="p" x="68" y="63" text-anchor="middle">Controller</text>
+  <rect class="tx" x="124" y="36" width="230" height="44" rx="6"/>
+  <text class="p" x="239" y="56" text-anchor="middle">OrderService</text>
+  <text class="s m" x="239" y="72" text-anchor="middle">@Transactional</text>
+  <rect class="phase" x="358" y="36" width="96" height="44" rx="6"/>
+  <text class="p" x="406" y="63" text-anchor="middle">Controller</text>
+  <rect class="phase" x="458" y="36" width="166" height="44" rx="6"/>
+  <text class="p" x="541" y="63" text-anchor="middle">Jackson writes JSON</text>
+
+  <!-- open-in-view = true -->
+  <line class="rule" x1="16" x2="624" y1="104" y2="104"/>
+  <text class="t" x="16" y="132">open-in-view = true <tspan class="s">(Spring Boot’s default)</tspan></text>
+  <text class="s" x="16" y="156">Persistence context open for the whole request</text>
+  <rect class="held" x="16" y="164" width="608" height="10" rx="3" opacity="0.35"/>
+  <text class="s" x="150" y="196">DB connection held from the first query until the response is written</text>
+  <rect class="held" x="150" y="204" width="474" height="10" rx="3"/>
+  <line class="tick" x1="490" x2="490" y1="222" y2="238"/>
+  <line class="tick" x1="514" x2="514" y1="222" y2="238"/>
+  <line class="tick" x1="538" x2="538" y1="222" y2="238"/>
+  <line class="tick" x1="562" x2="562" y1="222" y2="238"/>
+  <text class="s bad-t" x="476" y="235" text-anchor="end">lazy loads during serialization run more SELECTs</text>
+
+  <!-- open-in-view = false -->
+  <line class="rule" x1="16" x2="624" y1="262" y2="262"/>
+  <text class="t" x="16" y="290">open-in-view = false</text>
+  <text class="s" x="124" y="314">Context and connection: transaction only</text>
+  <rect class="held" x="124" y="322" width="230" height="10" rx="3"/>
+  <text class="s bad-t" x="624" y="314" text-anchor="end">unfetched data:</text>
+  <text class="s bad-t m" x="624" y="332" text-anchor="end">LazyInitialization-</text>
+  <text class="s bad-t m" x="624" y="348" text-anchor="end">Exception</text>
+  <text class="s" x="16" y="376">Everything the JSON needs is fetched in the service. A missing fetch fails loudly in a test</text>
+  <text class="s" x="16" y="394">instead of quietly adding queries in production.</text>
+</svg>

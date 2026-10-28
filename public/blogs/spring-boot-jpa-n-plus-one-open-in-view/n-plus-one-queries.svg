@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 372" width="640" height="372" role="img" aria-labelledby="title desc">
+  <title id="title">Queries needed to load 100 orders and their lines with JPA</title>
+  <desc id="desc">Lazy loading in a loop runs one query for the orders and one per order for its lines, 101 queries. With hibernate.default_batch_fetch_size set to 50, the lines load 50 orders at a time, 3 queries. A join fetch or entity graph loads orders and lines in a single query. Each square is one SQL statement.</desc>
+  <style>
+    .bg { fill: #f6f7f9; }
+    .t { fill: #161b22; font: 600 15px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    .s { fill: #566070; font: 400 13px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    .n { fill: #161b22; font: 600 22px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    .m { font-family: ui-monospace, "Cascadia Code", Consolas, Menlo, monospace; }
+    .root { fill: #3d6a8a; }
+    .child { fill: #9fb5c7; }
+    .bad-n { fill: #b42318; }
+    .rule { stroke: #e2e6ec; stroke-width: 1; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #11151b; }
+      .t, .n { fill: #e7eaef; }
+      .s { fill: #a4adba; }
+      .root { fill: #9cc1dc; }
+      .child { fill: #3d5568; }
+      .bad-n { fill: #f97066; }
+      .rule { stroke: #252b34; }
+    }
+  </style>
+  <defs>
+    <!-- One 9x9 square every 11px: each square is one SQL statement. -->
+    <pattern id="queries" width="11" height="11" patternUnits="userSpaceOnUse">
+      <rect class="child" width="9" height="9" rx="1.5"/>
+    </pattern>
+  </defs>
+
+  <rect class="bg" width="640" height="372"/>
+
+  <!-- Lazy loading in a loop -->
+  <text class="t" x="16" y="32">Lazy loading in a loop</text>
+  <text class="s" x="16" y="52">One SELECT for the orders, then one per order for its lines</text>
+  <rect class="root" x="16" y="66" width="9" height="9" rx="1.5"/>
+  <!-- Translated so the pattern's tiles start exactly at the rect's corner: 50 x 2 = 100 squares. -->
+  <g transform="translate(30 66)"><rect width="550" height="20" fill="url(#queries)"/></g>
+  <text class="n bad-n" x="624" y="84" text-anchor="end">101</text>
+  <line class="rule" x1="16" x2="624" y1="110" y2="110"/>
+
+  <!-- Batch fetching -->
+  <text class="t" x="16" y="140">With <tspan class="m">default_batch_fetch_size=50</tspan></text>
+  <text class="s" x="16" y="160">Lines load for 50 orders at a time with IN (…)</text>
+  <rect class="root" x="16" y="174" width="9" height="9" rx="1.5"/>
+  <g transform="translate(30 174)"><rect width="22" height="9" fill="url(#queries)"/></g>
+  <text class="n" x="624" y="192" text-anchor="end">3</text>
+  <line class="rule" x1="16" x2="624" y1="218" y2="218"/>
+
+  <!-- Join fetch -->
+  <text class="t" x="16" y="248">join fetch or @EntityGraph</text>
+  <text class="s" x="16" y="268">Orders and their lines in one SQL statement</text>
+  <rect class="root" x="16" y="282" width="9" height="9" rx="1.5"/>
+  <text class="n" x="624" y="300" text-anchor="end">1</text>
+
+  <!-- Legend -->
+  <rect class="root" x="16" y="338" width="9" height="9" rx="1.5"/>
+  <text class="s" x="32" y="347">query that loads the orders</text>
+  <rect class="child" x="220" y="338" width="9" height="9" rx="1.5"/>
+  <text class="s" x="236" y="347">query that loads order lines</text>
+  <text class="s" x="624" y="347" text-anchor="end">for 100 orders</text>
+</svg>

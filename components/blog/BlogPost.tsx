@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { getPost } from "@/data/blogs";
+import { getPost, relatedPosts } from "@/data/blogs";
 import { profile, siteUrl } from "@/data/resume";
 import { formatDate } from "@/lib/dates";
+import { alternatesFor } from "@/lib/seo";
 
 const postPath = (slug: string) => `/blogs/${slug}/`;
 
@@ -10,13 +11,17 @@ const postPath = (slug: string) => `/blogs/${slug}/`;
 export function postMetadata(slug: string): Metadata {
   const post = getPost(slug);
   return {
-    title: post.title,
+    // Absolute: the post title is the keyword-bearing part, and the root
+    // template's " — <name>" suffix would push it past what results show.
+    title: { absolute: post.title },
     description: post.description,
     keywords: post.tags,
-    alternates: { canonical: postPath(slug) },
+    authors: [{ name: profile.name, url: siteUrl }],
+    alternates: alternatesFor(postPath(slug)),
     openGraph: {
       type: "article",
       url: `${siteUrl}${postPath(slug)}`,
+      siteName: `${profile.name} — Blog`,
       title: post.title,
       description: post.description,
       publishedTime: post.datePublished,
@@ -24,6 +29,7 @@ export function postMetadata(slug: string): Metadata {
       authors: [profile.name],
       section: post.category,
       tags: post.tags,
+      locale: "en_US",
     },
     twitter: {
       card: "summary",
@@ -34,9 +40,9 @@ export function postMetadata(slug: string): Metadata {
 }
 
 /**
- * Frame for a single post: back link, title, dates and the article JSON-LD
- * all come from the post's entry in data/blogs.ts, so the page file only
- * holds the writing itself.
+ * Frame for a single post: back link, title, byline, dates, the article
+ * JSON-LD and related posts all come from the post's entry in
+ * data/blogs.ts, so the page file only holds the writing itself.
  */
 export default function BlogPost({
   slug,
@@ -48,6 +54,7 @@ export default function BlogPost({
   const post = getPost(slug);
   const url = `${siteUrl}${postPath(slug)}`;
   const modified = post.dateModified ?? post.datePublished;
+  const related = relatedPosts(slug);
 
   const jsonLd = [
     {
@@ -57,18 +64,26 @@ export default function BlogPost({
       headline: post.title,
       description: post.description,
       url,
+      ...(post.image && { image: `${siteUrl}${post.image}` }),
       datePublished: post.datePublished,
       dateModified: modified,
-      author: { "@type": "Person", name: profile.name, url: siteUrl },
+      author: {
+        "@type": "Person",
+        name: profile.name,
+        url: siteUrl,
+        jobTitle: profile.role,
+      },
+      publisher: { "@type": "Person", name: profile.name, url: siteUrl },
+      isPartOf: { "@type": "Blog", name: `${profile.name} — Blog`, url: `${siteUrl}/blogs/` },
       articleSection: post.category,
-      keywords: post.tags?.join(", "),
+      keywords: post.tags.join(", "),
       inLanguage: "en",
     },
     {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+        { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
         { "@type": "ListItem", position: 2, name: "Blog", item: `${siteUrl}/blogs/` },
         { "@type": "ListItem", position: 3, name: post.title, item: url },
       ],
@@ -98,6 +113,12 @@ export default function BlogPost({
               {post.title}
             </h1>
             <p className="mt-6 flex flex-wrap gap-x-5 gap-y-1 text-[15px] text-muted">
+              <span>
+                By{" "}
+                <a href="/" rel="author" className="link text-ink">
+                  {profile.name}
+                </a>
+              </span>
               <time dateTime={post.datePublished}>
                 {formatDate(post.datePublished)}
               </time>
@@ -107,14 +128,38 @@ export default function BlogPost({
                 </span>
               )}
               <span>{post.readingMinutes} min read</span>
-              <span>{post.category}</span>
             </p>
           </header>
 
           <div className="prose-post mt-12 md:mt-14">{children}</div>
 
-          <footer className="mt-20 border-t border-rule pt-8 text-[15px]">
-            <a href="/blogs/" className="link text-muted">
+          <footer className="mt-20 border-t border-rule pt-10">
+            {related.length > 0 && (
+              <nav aria-labelledby="related-heading">
+                <h2 id="related-heading" className="text-[15px] font-semibold">
+                  Related posts
+                </h2>
+                <ul className="mt-5 space-y-5">
+                  {related.map((p) => (
+                    <li key={p.slug}>
+                      <a
+                        href={postPath(p.slug)}
+                        className="text-lg font-semibold leading-snug tracking-tight transition-colors hover:text-accent-ink"
+                      >
+                        {p.title}
+                      </a>
+                      <p className="mt-1 text-[15px] leading-relaxed text-muted">
+                        {p.description}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            )}
+            <a
+              href="/blogs/"
+              className={`link inline-block text-[15px] text-muted${related.length > 0 ? " mt-10" : ""}`}
+            >
               All posts
             </a>
           </footer>

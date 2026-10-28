@@ -90,13 +90,14 @@ header, the page metadata and the JSON-LD all read from this entry.
 ```ts
 {
   slug: "loading-a-million-rows-with-spring-batch",
-  title: "Loading a million rows with Spring Batch",
-  description: "One or two sentences for the index and search results.",
+  title: "Loading a million rows with Spring Batch",   // also the <title>: under ~60 chars
+  description: "140–160 characters for the index and search results.",
   category: "Spring Batch",
   datePublished: "2026-11-02",
   // dateModified: "2026-11-10",   shows "Updated ..." when set
   readingMinutes: 6,
-  tags: ["Spring Batch", "PostgreSQL"],
+  tags: ["Spring Batch", "PostgreSQL"],                // keywords, and how related posts are picked
+  image: "/blogs/loading-a-million-rows-with-spring-batch/diagram.svg",  // main diagram, for JSON-LD
 },
 ```
 
@@ -146,8 +147,28 @@ export default function Post() {
 ```
 
 `CodeBlock` strips the leading and trailing blank lines and the indentation
-shared by every line, so code can sit indented inside the JSX as above.
+shared by every line, so code can sit indented inside the JSX as above. Inside
+the template literal, write `\${` for a literal `${` (Spring placeholders).
 Put a post's images in `public/blogs/<slug>/`.
+
+### Diagrams
+
+Every diagram is a hand-written SVG in `public/blogs/<slug>/`. To match the
+existing ones:
+
+- **Theme:** an internal `<style>` with the site's light colours, plus an
+  `@media (prefers-color-scheme: dark)` block, so the diagram follows the
+  reader's theme even when opened on its own.
+- **Fonts:** system font stacks (`ui-sans-serif, system-ui, …` and
+  `ui-monospace, …`). An SVG shown through `<img>` cannot load the page's web
+  fonts.
+- **Accessibility and image search:** `role="img"`, plus `<title>` and `<desc>`
+  elements, and a descriptive `alt` on the `<Figure>`.
+- **Width:** a `viewBox` 640 wide, with text at 12.5px or larger, since the
+  diagram is scaled down on phones. `Figure` links to the file so readers can
+  open it full size.
+- **Whitespace:** SVG collapses spaces, so indent code lines with `x` offsets,
+  not leading spaces.
 
 **3. Build** (`npm run build`). A page whose slug has no entry in `data/blogs.ts`
 fails the build with a message naming the slug.
@@ -158,10 +179,23 @@ once to regenerate those types.
 
 ## Search engines
 
-The site is currently **kept out of search results**, the same as the site it was
-built from: `app/robots.ts` disallows crawling and the `robots` block in
-`app/layout.tsx` emits `noindex, nofollow`. To make it findable, delete
-`app/robots.ts` and the `robots` block, then rebuild.
+The site is **indexable** and set up for search:
+
+| | |
+|---|---|
+| `/robots.txt` | Allows all crawlers and points at the sitemap (`app/robots.ts`) |
+| `/sitemap.xml` | Home, blog index and every post, with last-modified dates (`app/sitemap.ts`) |
+| `/feed.xml` | RSS 2.0 feed of every post (`app/feed.xml/route.ts`), linked from every page |
+| Metadata | Canonical URLs, Open Graph and Twitter cards on every page (`lib/seo.ts`, `postMetadata`) |
+| JSON-LD | `Person` site-wide, `CollectionPage` on the blog index, `BlogPosting` + `BreadcrumbList` on each post |
+| Internal links | "Writing" section on the home page, related posts under each post |
+
+After the first deploy, add the site to [Google Search Console](https://search.google.com/search-console)
+and submit `https://uddipacharjee.github.io/sitemap.xml`. Search Console's HTML-tag
+verification can be added through `metadata.verification` in `app/layout.tsx`.
+
+To keep the site out of search results instead, set `robots` in `app/layout.tsx` to
+`{ index: false, follow: false }` and change `app/robots.ts` to `disallow: "/"`.
 
 ## Structure
 
@@ -171,16 +205,22 @@ app/
   page.tsx          Section composition
   globals.css       Tailwind v4 theme tokens (light + dark), component classes,
                     post body styles (.prose-post)
+  robots.ts         /robots.txt
+  sitemap.ts        /sitemap.xml
+  feed.xml/route.ts /feed.xml (RSS)
   blogs/
     layout.tsx      Loads the monospace font, for blog pages only
     page.tsx        The /blogs/ index
     <slug>/page.tsx One folder per post
-components/         One component per section, plus Nav / Section / ProfileLinks
+components/         One component per section, plus Nav / Section / ProfileLinks / Writing
   blog/             BlogPost frame + CodeBlock / Callout / Figure for posts
 data/
   resume.ts         Profile, skills and nav content
-  blogs.ts          Every post's title, dates, category and description
-lib/dates.ts        Post date formatting
+  blogs.ts          Every post's title, dates, tags and description; related-post lookup
+lib/
+  dates.ts          Post date formatting
+  seo.ts            Canonical URL + RSS link shared by every page
+public/blogs/       One folder of SVG diagrams per post
 scripts/
   postbuild.mjs     Moves the export to docs/
 docs/               The built site — committed, served by GitHub Pages

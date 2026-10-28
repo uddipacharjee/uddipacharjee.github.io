@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 552" width="640" height="552" role="img" aria-labelledby="title desc">
+  <title id="title">Spring Batch chunk-oriented step with a chunk size of 500</title>
+  <desc id="desc">A file of one million lines flows into an ItemReader, an ItemProcessor and an ItemWriter. The three repeat once per chunk of 500 items, each chunk in its own transaction, and the writer sends one batched insert to PostgreSQL. After each commit the reader position is saved so a restart resumes at the last committed chunk.</desc>
+  <style>
+    .bg { fill: #f6f7f9; }
+    .h { fill: #161b22; font: 600 16px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    .t { fill: #161b22; font: 600 15px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    .d { fill: #161b22; font: 400 14px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    .s { fill: #566070; font: 400 13px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    .m { font-family: ui-monospace, "Cascadia Code", Consolas, Menlo, monospace; font-size: 13px; }
+    .box { fill: #ffffff; stroke: #c3cfda; stroke-width: 1.5; }
+    .region { fill: #e6ebf0; }
+    .db { fill: #d5e0e7; stroke: #9fb5c7; stroke-width: 1.5; }
+    .line { stroke: #566070; stroke-width: 1.5; fill: none; }
+    .loop { stroke: #3d6a8a; stroke-width: 2; fill: none; }
+    .head { fill: #566070; }
+    .head-accent { fill: #3d6a8a; }
+    .accent-t { fill: #3d6a8a; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #11151b; }
+      .h, .t, .d { fill: #e7eaef; }
+      .s { fill: #a4adba; }
+      .box { fill: #171c23; stroke: #33404c; }
+      .region { fill: #1c252e; }
+      .db { fill: #283743; stroke: #3d5568; }
+      .line { stroke: #a4adba; }
+      .loop { stroke: #9cc1dc; }
+      .head { fill: #a4adba; }
+      .head-accent, .accent-t { fill: #9cc1dc; }
+    }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" class="head"/>
+    </marker>
+    <marker id="arrow-accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" class="head-accent"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" width="640" height="552"/>
+  <text class="h" x="16" y="30">Chunk-oriented step, chunk size 500</text>
+
+  <!-- The repeating chunk (drawn first so arrows sit on top of it) -->
+  <rect class="region" x="16" y="140" width="608" height="300" rx="12"/>
+  <text class="s" x="608" y="162" text-anchor="end">repeats until the file ends</text>
+
+  <!-- Input file -->
+  <rect class="box" x="56" y="52" width="220" height="60" rx="8"/>
+  <text class="t" x="72" y="78">students.txt</text>
+  <text class="s" x="72" y="99">1,000,000 fixed-width lines</text>
+  <line class="line" x1="166" y1="112" x2="166" y2="166" marker-end="url(#arrow)"/>
+
+  <rect class="box" x="56" y="172" width="220" height="60" rx="8"/>
+  <text class="t" x="72" y="198">ItemReader</text>
+  <text class="s" x="72" y="219">read(), one line at a time</text>
+  <text class="d" x="300" y="197">Reads 500 lines. Only those 500</text>
+  <text class="d" x="300" y="217">are in memory at any moment.</text>
+  <line class="line" x1="166" y1="232" x2="166" y2="254" marker-end="url(#arrow)"/>
+
+  <rect class="box" x="56" y="260" width="220" height="60" rx="8"/>
+  <text class="t" x="72" y="286">ItemProcessor</text>
+  <text class="s" x="72" y="307">process(item)</text>
+  <text class="d" x="300" y="285">Validates or transforms each item;</text>
+  <text class="d" x="300" y="305">returning null filters it out.</text>
+  <line class="line" x1="166" y1="320" x2="166" y2="342" marker-end="url(#arrow)"/>
+
+  <rect class="box" x="56" y="348" width="220" height="60" rx="8"/>
+  <text class="t" x="72" y="374">ItemWriter</text>
+  <text class="s" x="72" y="395">write(chunk of 500)</text>
+  <text class="d" x="300" y="373">One batched INSERT for the chunk,</text>
+  <text class="d" x="300" y="393">then the transaction commits.</text>
+
+  <!-- Loop back to the reader for the next chunk -->
+  <path class="loop" d="M56 378 H36 V202 H50" marker-end="url(#arrow-accent)"/>
+  <text class="s accent-t" x="28" y="290" text-anchor="middle" transform="rotate(-90 28 290)">next chunk</text>
+
+  <!-- Database -->
+  <line class="line" x1="166" y1="408" x2="166" y2="466" marker-end="url(#arrow)"/>
+  <rect class="db" x="56" y="472" width="220" height="60" rx="8"/>
+  <text class="t" x="72" y="498">PostgreSQL</text>
+  <text class="s" x="72" y="519">student table</text>
+  <text class="s" x="300" y="492">After each commit the reader’s position</text>
+  <text class="s" x="300" y="510">(<tspan class="m">read.count</tspan>) is saved, so a restart</text>
+  <text class="s" x="300" y="528">resumes at the last committed chunk.</text>
+</svg>

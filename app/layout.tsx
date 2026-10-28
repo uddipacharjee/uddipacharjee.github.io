@@ -4,6 +4,7 @@ import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { profile, siteUrl, socials } from "@/data/resume";
+import { alternatesFor } from "@/lib/seo";
 
 // One family for everything. The width axis lets the hero name run
 // condensed (font-stretch) while body text stays at normal width.
@@ -33,7 +34,6 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: profile.name, url: siteUrl }],
   creator: profile.name,
-  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     url: siteUrl,
@@ -48,19 +48,20 @@ export const metadata: Metadata = {
     title: `${profile.name} — ${profile.role}`,
     description,
   },
-  // The site is kept out of search results, as on the site this one was
-  // built from. This emits <meta name="robots" content="noindex, nofollow">
-  // alongside the Disallow rules in app/robots.ts; remove both to be indexed.
+  // Indexable, and Google may show full-size image previews and snippets of
+  // any length (useful for the blog's diagrams and code-heavy posts).
   robots: {
-    index: false,
-    follow: false,
-    nocache: true,
+    index: true,
+    follow: true,
     googleBot: {
-      index: false,
-      follow: false,
-      noimageindex: true,
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
     },
   },
+  alternates: alternatesFor("/"),
 };
 
 export const viewport: Viewport = {

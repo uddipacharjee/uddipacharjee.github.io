@@ -2,18 +2,20 @@ import type { Metadata } from "next";
 import { blogIntro, postsNewestFirst } from "@/data/blogs";
 import { profile, siteUrl, socials } from "@/data/resume";
 import { formatDate } from "@/lib/dates";
+import { alternatesFor } from "@/lib/seo";
 
 const PAGE_PATH = "/blogs/";
-const description = `Posts by ${profile.name} on Java, Spring Boot and backend engineering.`;
+const description = `Practical Java and Spring Boot guides by ${profile.name}: Spring Batch, Spring Modulith, JPA, testing, virtual threads and Spring AI, with diagrams and working code.`;
 
 export const metadata: Metadata = {
-  title: "Blog",
+  // Rendered through the root template as "Java and Spring Boot Blog — <name>".
+  title: "Java and Spring Boot Blog",
   description,
-  alternates: { canonical: PAGE_PATH },
+  alternates: alternatesFor(PAGE_PATH),
   openGraph: {
     type: "website",
     url: `${siteUrl}${PAGE_PATH}`,
-    title: `Blog — ${profile.name}`,
+    title: `Java and Spring Boot Blog — ${profile.name}`,
     description,
   },
 };
