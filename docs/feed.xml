@@ -94,5 +94,13 @@
       <category>Developer tools</category>
       <pubDate>Wed, 28 Oct 2026 00:00:00 GMT</pubDate>
     </item>
+    <item>
+      <title>Which JDK Distribution Should You Use in 2026?</title>
+      <link>https://uddipacharjee.github.io/blogs/which-jdk-distribution/</link>
+      <guid isPermaLink="true">https://uddipacharjee.github.io/blogs/which-jdk-distribution/</guid>
+      <description>Temurin, Corretto, Zulu, Liberica, Oracle JDK and more compared for 2026: free update dates, licences, platforms, Docker images and Spring Boot tips.</description>
+      <category>Developer tools</category>
+      <pubDate>Wed, 28 Oct 2026 00:00:00 GMT</pubDate>
+    </item>
   </channel>
 </rss>
